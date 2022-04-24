@@ -1,6 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { WalletButton } from "wallet-button";
+import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 
 function App() {
   return (
@@ -10,6 +12,13 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <WalletButton
+          useWeb3React={useWeb3React}
+          UnsupportedChainIdError={UnsupportedChainIdError}
+          supportedChains={[
+            { chainId: 1, name: "Mainnet"} 
+          ]}
+        />
         <a
           className="App-link"
           href="https://reactjs.org"
