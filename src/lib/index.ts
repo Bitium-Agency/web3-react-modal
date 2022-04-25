@@ -1,3 +1,3 @@
-import WalletButton from "./components/wallet-button";
+import WalletButton from './components/wallet-button';
 
-export { WalletButton };
+export default WalletButton;

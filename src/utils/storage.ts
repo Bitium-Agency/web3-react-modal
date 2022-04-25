@@ -1,36 +1,40 @@
-import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
-import { InjectedConnector } from "@web3-react/injected-connector";
-import { ethers } from "ethers";
-import { supportedChain } from "../types/chain";
+import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
+import { InjectedConnector } from '@web3-react/injected-connector';
+import { ethers } from 'ethers';
+import { supportedChain } from '../types/chain';
+import { walletconnectConfigs } from '../types/walletconnect';
+
 export const connectors: any = {};
-export const init = async (supportedChains: supportedChain[], walletConnectConfigs?: walletconnectConfigs) => {
+export const init = async (
+  supportedChains: supportedChain[],
+  walletConnectConfigs?: walletconnectConfigs,
+) => {
   if (Object.keys(connectors).length === 0) {
-    const injected = new InjectedConnector({ supportedChainIds: supportedChains.map(c => c.chainId) });
-    console.log('walletConnectConfigs', walletConnectConfigs)
+    const injected = new InjectedConnector(
+      { supportedChainIds: supportedChains.map((c) => c.chainId) },
+    );
     const walletconnect = walletConnectConfigs && new WalletConnectConnector(walletConnectConfigs);
     connectors.injected = injected;
     connectors.injected.id = 0;
     if (walletconnect) {
       connectors.walletconnect = walletconnect;
-      connectors.walletconnect.id = 1
+      connectors.walletconnect.id = 1;
     }
   }
 };
-export const getConnectors = () => {
-  return Object.keys(connectors).length > 0 ? connectors : null;
-};
+export const getConnectors = () => (Object.keys(connectors).length > 0 ? connectors : null);
 export const switchNetwork = async (chain: supportedChain) => {
   const provider = (window as any).ethereum;
   if (provider.networkVersion !== chain.chainId) {
     try {
       await provider.request({
-        method: "wallet_switchEthereumChain",
+        method: 'wallet_switchEthereumChain',
         params: [{ chainId: ethers.utils.hexValue(chain.chainId) }],
       });
     } catch (err: any) {
       if (err.code === 4902) {
         await provider.request({
-          method: "wallet_addEthereumChain",
+          method: 'wallet_addEthereumChain',
           params: [
             {
               chainName: chain.name,
