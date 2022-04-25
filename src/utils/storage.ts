@@ -3,20 +3,17 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from "ethers";
 import { supportedChain } from "../types/chain";
 export const connectors: any = {};
-export const init = async (supportedChains: supportedChain[]) => {
+export const init = async (supportedChains: supportedChain[], walletConnectConfigs?: walletconnectConfigs) => {
   if (Object.keys(connectors).length === 0) {
     const injected = new InjectedConnector({ supportedChainIds: supportedChains.map(c => c.chainId) });
-    const walletconnect = new WalletConnectConnector({
-      rpc: {
-        1: "https://mainnet.infura.io/v3/70d9c70a15ad4cdd91f57979fd0d9e21",
-      },
-      qrcode: true,
-    } as any);
-    console.log('init wallet connect ', walletconnect)
+    console.log('walletConnectConfigs', walletConnectConfigs)
+    const walletconnect = walletConnectConfigs && new WalletConnectConnector(walletConnectConfigs);
     connectors.injected = injected;
     connectors.injected.id = 0;
-    connectors.walletconnect = walletconnect;
-    connectors.walletconnect.id = 1
+    if (walletconnect) {
+      connectors.walletconnect = walletconnect;
+      connectors.walletconnect.id = 1
+    }
   }
 };
 export const getConnectors = () => {
@@ -24,7 +21,6 @@ export const getConnectors = () => {
 };
 export const switchNetwork = async (chain: supportedChain) => {
   const provider = (window as any).ethereum;
-  console.log("provider");
   if (provider.networkVersion !== chain.chainId) {
     try {
       await provider.request({

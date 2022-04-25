@@ -5,28 +5,44 @@ import { WalletButton } from "wallet-button";
 import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
 
 function App() {
+  const {account,chainId,active} = useWeb3React()
+  const WCConfigs = {
+    rpc: {
+      1: "https://mainnet.infura.io/v3/70d9c70a15ad4cdd91f57979fd0d9e21",
+    },
+    qrcode: true,
+  }
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        
         <WalletButton
           useWeb3React={useWeb3React}
-          UnsupportedChainIdError={UnsupportedChainIdError}
+          walletConnectConfigs={WCConfigs}
+          onError={(error) => {
+            alert(error);
+          }}
           supportedChains={[
-            { chainId: 1, name: "Mainnet"} 
+            { chainId: 1, name: "Mainnet",
+              rpcUrl: "https://mainnet.infura.io/v3/70d9c70a15ad4cdd91f57979fd0d9e21",nativeCurrency: {
+                name: "Ether",
+                symbol: "ETH",
+                decimals: 18,
+              }
+             },
+            { chainId: 3, name: "Ropsten",
+              rpcUrl: "https://ropsten.infura.io/v3/70d9c70a15ad4cdd91f57979fd0d9e21",nativeCurrency: {
+                name: "Ether",
+                symbol: "ETH",
+                decimals: 18,
+              }
+            }
           ]}
         />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {active ? (<><div>Your waladdres is: {account}</div>
+        <div>chain id: {chainId}</div></>) : (<div>No active wallet</div>)}
+        
       </header>
     </div>
   );

@@ -6,6 +6,7 @@
 /example/build
 /.pnp
 .pnp.js
+/lib
 
 # testing
 /coverage

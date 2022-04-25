@@ -2,6 +2,7 @@ import { UnsupportedChainIdError } from "@web3-react/core";
 import { NoEthereumProviderError, UserRejectedRequestError } from "@web3-react/injected-connector";
 import { URI_AVAILABLE } from "@web3-react/walletconnect-connector";
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 import { supportedChain } from "../../../types/chain";
 import { getConnectors, init, switchNetwork } from "../../../utils/storage";
 import WalletsModal from "../wallets-modal";
@@ -10,15 +11,32 @@ interface WalletButtonProps {
   useWeb3React: any;
   supportedChains : supportedChain[];
   onError: (error: any) => void;
+  walletConnectConfigs ?: walletconnectConfigs
 }
-function WalletButton({useWeb3React,supportedChains,onError}: WalletButtonProps) {
+function WalletButton({useWeb3React,supportedChains,onError,walletConnectConfigs}: WalletButtonProps) {
+  console.log('walletConnectConfigswalletConnectConfigs',walletConnectConfigs)
   const { activate, account, chainId, active, error } = useWeb3React();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentConnector, setCurrentConnector] = useState(-1);
   const isUserRejectedRequestError = error instanceof UserRejectedRequestError
   const isUnsupportedChainIdError = error instanceof UnsupportedChainIdError
   const isNoEthereumProviderError = error instanceof NoEthereumProviderError
-
+  const Walletbutton_button = styled.button`
+  background:-moz-linear-gradient(90deg, rgba(31, 17, 206, 1) 0%, rgba(229, 43, 43, 1) 100%); 
+  background:-webkit-linear-gradient(90deg, rgba(31, 17, 206, 1) 0%, rgba(229, 43, 43, 1) 100%);
+  background:-o-linear-gradient(90deg, rgba(31, 17, 206, 1) 0%, rgba(229, 43, 43, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E52B2B', endColorstr='#1F11CE', GradientType=0 );
+  background:-ms-linear-gradient(90deg, rgba(31, 17, 206, 1) 0%, rgba(229, 43, 43, 1) 100%);
+  background:linear-gradient(90deg, rgba(31, 17, 206, 1) 0%, rgba(229, 43, 43, 1) 100%);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  width: 150px;
+    `
  
   const handleConnectClick = async () => {
     if (isUnsupportedChainIdError && currentConnector===0) {
@@ -31,9 +49,9 @@ function WalletButton({useWeb3React,supportedChains,onError}: WalletButtonProps)
       return "Switch Network";
     }
     if (active) {
-      return "Connected";
+      return account.substring(0, 5) + "..." + account.substring(account.length - 5);
     }
-    return "Connect";
+    return "Connect Wallet";
   };
   useEffect(() => {
     if (isUnsupportedChainIdError || error?.name === 'UnsupportedChainIdError') {
@@ -49,11 +67,10 @@ function WalletButton({useWeb3React,supportedChains,onError}: WalletButtonProps)
 }, [error])
   
   useEffect(() => {
-    init(supportedChains);
+    init(supportedChains,walletConnectConfigs);
     const logURI = (uri: any) => {
-      console.log("WalletConnect URI", uri);
+      console.log(uri);
     };
-    console.log('connectors' , getConnectors())
     getConnectors()?.walletconnect && getConnectors()?.walletconnect.on(URI_AVAILABLE, logURI);
 
     return () => {
@@ -63,7 +80,7 @@ function WalletButton({useWeb3React,supportedChains,onError}: WalletButtonProps)
 
 
   return (
-    <div className="App">
+    <>
       <WalletsModal
         showModal={modalIsOpen}
         onSelect={() => setModalIsOpen(false)}
@@ -72,18 +89,15 @@ function WalletButton({useWeb3React,supportedChains,onError}: WalletButtonProps)
         supportedChains={supportedChains}
         chainId={chainId}
       />
-      <button
+      <Walletbutton_button
         onClick={() => {
           handleConnectClick();
         }}
         disabled={active}
       >
         {connectButtonText()}
-      </button>
-      <div>{account ? account : "disconnect"} </div>
-      <div>{chainId ? chainId : "INVALID"}</div>
-      <div> {isUnsupportedChainIdError ? "salam" : "bye"}</div>
-    </div>
+      </Walletbutton_button>
+    </>
   );
 }
 
