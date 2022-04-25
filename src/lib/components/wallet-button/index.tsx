@@ -98,7 +98,10 @@ function WalletButton({
       onError('User rejected request')
     }
 
-    if (isNoEthereumProviderError) {
+    if (
+      isNoEthereumProviderError
+      || error?.name === 'NoEthereumProviderError'
+    ) {
       onError('No ethereum provider')
     }
   }, [error])

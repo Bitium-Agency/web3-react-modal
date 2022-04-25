@@ -25,7 +25,7 @@ export const init = async (
 export const getConnectors = () => (Object.keys(connectors).length > 0 ? connectors : null);
 export const switchNetwork = async (chain: supportedChain) => {
   const provider = (window as any).ethereum;
-  if (provider.networkVersion !== chain.chainId) {
+  if (provider?.networkVersion !== chain.chainId) {
     try {
       await provider.request({
         method: 'wallet_switchEthereumChain',

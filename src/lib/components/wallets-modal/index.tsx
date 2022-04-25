@@ -28,7 +28,10 @@ function WalletsModal({
   chainId,
 }: WalletModalProps) {
   const activeInjected = async () => {
-    if (!supportedChains.find((c) => +c.chainId === +chainId)) {
+    if (
+      (window as any)?.ethereum
+      && !supportedChains.find((c) => +c.chainId === +chainId)
+    ) {
       await switchNetwork(supportedChains[0])
     }
 
@@ -72,9 +75,13 @@ function WalletsModal({
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 0px;
+    width: 250px;
+    height: fit-content;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
     margin: 0px;
     border: none;
     border-radius: 5px;
@@ -82,10 +89,13 @@ function WalletsModal({
     font-size: 14px;
     font-weight: bold;
     color: #000;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
     &:hover {
       background-color: #f5f5f5;
-      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    }
+    @media (max-width: 768px) {
+      width: 80%;
     }
   `
   const modalContainer = useRef(null)
@@ -108,18 +118,6 @@ function WalletsModal({
     >
       <Walletbutton_modal_container
         ref={modalContainer}
-        style={{
-          width: '250px',
-          height: 'fit-content',
-          backgroundColor: 'white',
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-50%, -50%)',
-          borderRadius: '10px',
-          padding: '10px',
-          boxShadow: '0px 0px 10px rgba(0,0,0,0.5)',
-        }}
         className="walletbutton-modal-container"
       >
         <Walletbutton_modal_title className="walletbutton-modal-title">

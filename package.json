@@ -1,6 +1,6 @@
 {
   "name": "wallet-button",
-  "version": "0.1.6",
+  "version": "0.1.9",
   "private": true,
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
