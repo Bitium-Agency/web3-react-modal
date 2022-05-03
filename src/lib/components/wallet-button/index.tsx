@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { UnsupportedChainIdError } from '@web3-react/core'
 import {
   NoEthereumProviderError,
@@ -16,13 +17,15 @@ interface WalletButtonProps {
   supportedChains: supportedChain[]
   // eslint-disable-next-line no-unused-vars
   onError: (error: any) => void
-  walletConnectConfigs?: walletconnectConfigs
+  walletConnectConfigs?: walletconnectConfigs,
+  ButtonProps?: Object
 }
 function WalletButton({
   useWeb3React,
   supportedChains,
   onError,
   walletConnectConfigs,
+  ButtonProps,
 }: WalletButtonProps) {
   const {
     activate, account, chainId, active, error,
@@ -138,6 +141,7 @@ function WalletButton({
           handleConnectClick()
         }}
         disabled={active}
+        {...ButtonProps}
       >
         {connectButtonText()}
       </Walletbutton_button>

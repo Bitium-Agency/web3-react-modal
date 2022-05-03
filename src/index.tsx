@@ -9,7 +9,8 @@ interface WalletButtonProps {
   supportedChains: supportedChain[]
   // eslint-disable-next-line no-unused-vars
   onError: (error: any) => void
-  walletConnectConfigs?: walletconnectConfigs
+  walletConnectConfigs?: walletconnectConfigs,
+  ButtonProps?: Object
 }
 
 function WalletButton({
@@ -17,6 +18,7 @@ function WalletButton({
   supportedChains,
   onError,
   walletConnectConfigs,
+  ButtonProps,
 }: // eslint-disable-next-line no-undef
 WalletButtonProps): JSX.Element {
   return (
@@ -25,6 +27,7 @@ WalletButtonProps): JSX.Element {
       useWeb3React={useWeb3React}
       onError={onError}
       walletConnectConfigs={walletConnectConfigs}
+      ButtonProps={ButtonProps}
       // UnsupportedChainIdError={UnsupportedChainIdError}
     />
   )
