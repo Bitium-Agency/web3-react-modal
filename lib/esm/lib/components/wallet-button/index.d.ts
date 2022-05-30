@@ -6,6 +6,7 @@ interface WalletButtonProps {
     supportedChains: supportedChain[];
     onError: (error: any) => void;
     walletConnectConfigs?: walletconnectConfigs;
+    ButtonProps?: Object;
 }
-declare function WalletButton({ useWeb3React, supportedChains, onError, walletConnectConfigs, }: WalletButtonProps): JSX.Element;
+declare function WalletButton({ useWeb3React, supportedChains, onError, walletConnectConfigs, ButtonProps, }: WalletButtonProps): JSX.Element;
 export default WalletButton;

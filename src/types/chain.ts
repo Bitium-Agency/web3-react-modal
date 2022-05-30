@@ -1,4 +1,4 @@
-export interface supportedChain {
+export interface SupportedChain {
   chainId: number;
   name: string;
   rpcUrl: string;
