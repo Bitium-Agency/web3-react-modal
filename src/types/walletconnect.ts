@@ -10,4 +10,8 @@ export interface WalletButtonProps {
   onError: (error: any) => void;
   walletConnectConfigs?: WalletconnectConfigs;
   ButtonProps?: Object;
+  Render?: JSX.Element;
+  connectText?: string;
+  switchText?: string;
+  buttonText?: string;
 }

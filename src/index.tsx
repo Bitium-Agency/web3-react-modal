@@ -7,7 +7,11 @@ function WalletButton({
   supportedChains,
   walletConnectConfigs,
   onError,
-  ButtonProps
+  ButtonProps,
+  Render,
+  connectText,
+  switchText,
+  buttonText
 }: WalletButtonProps): JSX.Element {
   return (
     <WB
@@ -16,6 +20,10 @@ function WalletButton({
       onError={onError}
       walletConnectConfigs={walletConnectConfigs}
       ButtonProps={ButtonProps}
+      Render={Render}
+      connectText={connectText}
+      switchText={switchText}
+      buttonText={buttonText}
       // UnsupportedChainIdError={UnsupportedChainIdError}
     />
   );

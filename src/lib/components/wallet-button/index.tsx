@@ -31,7 +31,11 @@ function WalletButton({
   supportedChains,
   onError,
   walletConnectConfigs,
-  ButtonProps
+  ButtonProps,
+  Render,
+  connectText,
+  switchText,
+  buttonText
 }: WalletButtonProps) {
   const { activate, account, chainId, active, error } = useWeb3React();
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -49,12 +53,12 @@ function WalletButton({
   };
   const connectButtonText = () => {
     if (isUnsupportedChainIdError) {
-      return "Switch Network";
+      return switchText || "Switch Network";
     }
     if (active) {
-      return `${account.substring(0, 5)}...${account.substring(account.length - 5)}`;
+      return connectText || `${account.substring(0, 5)}...${account.substring(account.length - 5)}`;
     }
-    return "Connect Wallet";
+    return buttonText || "Connect Wallet";
   };
   useEffect(() => {
     if (isUnsupportedChainIdError || error?.name === "UnsupportedChainIdError") {
@@ -107,15 +111,29 @@ function WalletButton({
         supportedChains={supportedChains}
         chainId={chainId}
       />
-      <WalletbuttonButton
-        onClick={() => {
-          handleConnectClick();
-        }}
-        disabled={active}
-        {...ButtonProps}
-      >
-        {connectButtonText()}
-      </WalletbuttonButton>
+      {Render ? (
+        <div
+          onClick={() => {
+            if (!active) {
+              handleConnectClick();
+            }
+          }}
+        >
+          {Render}
+        </div>
+      ) : (
+        <WalletbuttonButton
+          onClick={() => {
+            if (!active) {
+              handleConnectClick();
+            }
+          }}
+          disabled={active}
+          {...ButtonProps}
+        >
+          {connectButtonText()}
+        </WalletbuttonButton>
+      )}
     </>
   );
 }
