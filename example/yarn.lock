@@ -1958,6 +1958,17 @@
     "@typescript-eslint/types" "4.33.0"
     "eslint-visitor-keys" "^2.0.0"
 
+"@web3-react/modal@file:..":
+  "resolved" "file:.."
+  "version" "0.1.18"
+  dependencies:
+    "@ethersproject/providers" "^5.6.4"
+    "@web3-react/injected-connector" "^6.0.7"
+    "@web3-react/walletconnect-connector" "^6.2.13"
+    "ethers" "^5.6.4"
+    "styled-components" "^5.3.5"
+    "zustand" "^4.0.0-rc.1"
+
 "@webassemblyjs/ast@1.9.0":
   "integrity" "sha512-C6wW5L+b7ogSDVqymbkkvuW9kruN//YisMED04xzeBBqjHa2FYnmvOlS6Xj68xWQRgWvI9cIglsjFowH/RJyEA=="
   "resolved" "https://registry.npmjs.org/@webassemblyjs/ast/-/ast-1.9.0.tgz"
@@ -11169,7 +11180,7 @@
 
 "wallet-button@file:..":
   "resolved" "file:.."
-  "version" "0.1.15"
+  "version" "0.1.18"
   dependencies:
     "@ethersproject/providers" "^5.6.4"
     "@web3-react/core" "^6.1.9"

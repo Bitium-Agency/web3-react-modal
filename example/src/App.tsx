@@ -1,25 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { WalletButton } from 'wallet-button'
-import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
+import { useWeb3ReactModal, WalletButton } from 'wallet-button'
+import { useWeb3React } from '@web3-react/core'
 
 
 
 function App() {
   const ExampleFC :React.FC = () => <button >Custom Component</button>;
-
+  
   const { account, chainId, active } = useWeb3React()
+  const {initial , isInitialized} = useWeb3ReactModal();
   const WCConfigs = {
     rpc: {
       1: 'https://mainnet.infura.io/v3/70d9c70a15ad4cdd91f57979fd0d9e21',
     },
     qrcode: true,
   }
+  useEffect(() => {
+    initial('test')
+  }, [])
+  
   return (
+  
     <div className='App'>
       <header className='App-header'>
         <img src={logo} className='App-logo' alt='logo' />
+        {isInitialized ? 'initialized' : 'not initialized'}
         <WalletButton
           useWeb3React={useWeb3React}
           walletConnectConfigs={WCConfigs}

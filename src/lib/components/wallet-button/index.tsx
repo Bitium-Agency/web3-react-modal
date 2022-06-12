@@ -7,6 +7,7 @@ import styled from "styled-components";
 import useAccountListener from "../../../hooks/useAccountListener";
 import { WalletButtonProps } from "../../../types/walletconnect";
 import { getConnectors, init, switchNetwork } from "../../../utils/storage";
+import Portal from "../portal/portal";
 import WalletsModal from "../wallets-modal";
 
 const WalletbuttonButton = styled.button`
@@ -102,15 +103,17 @@ function WalletButton({
 
   return (
     <>
-      <WalletsModal
-        showModal={modalIsOpen}
-        setShowModal={setModalIsOpen}
-        onSelect={() => setModalIsOpen(false)}
-        activate={activate}
-        setCurrentConnector={setCurrentConnector}
-        supportedChains={supportedChains}
-        chainId={chainId}
-      />
+      <Portal>
+        <WalletsModal
+          showModal={modalIsOpen}
+          setShowModal={setModalIsOpen}
+          onSelect={() => setModalIsOpen(false)}
+          activate={activate}
+          setCurrentConnector={setCurrentConnector}
+          supportedChains={supportedChains}
+          chainId={chainId}
+        />
+      </Portal>
       {Render ? (
         <div
           onClick={() => {
