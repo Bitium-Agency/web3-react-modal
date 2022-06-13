@@ -12,8 +12,6 @@
   "dependencies": {
     "@ethersproject/providers": "^5.6.4",
     "@web3-react/injected-connector": "^6.0.7",
-    "@web3-react/walletconnect-connector": "^6.2.13",
-    "ethers": "^5.6.4",
     "styled-components": "^5.3.5",
     "zustand": "^4.0.0-rc.1"
   },

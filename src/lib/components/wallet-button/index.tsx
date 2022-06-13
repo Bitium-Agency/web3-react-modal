@@ -1,14 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { UnsupportedChainIdError } from "@web3-react/core";
 import { NoEthereumProviderError, UserRejectedRequestError } from "@web3-react/injected-connector";
-import { URI_AVAILABLE } from "@web3-react/walletconnect-connector";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import useAccountListener from "../../../hooks/useAccountListener";
+import useStore from "../../../store/store";
 import { WalletButtonProps } from "../../../types/walletconnect";
-import { getConnectors, init, switchNetwork } from "../../../utils/storage";
-import Portal from "../portal/portal";
-import WalletsModal from "../wallets-modal";
 
 const WalletbuttonButton = styled.button`
   background: -moz-linear-gradient(90deg, rgba(31, 17, 206, 1) 0%, rgba(229, 43, 43, 1) 100%);
@@ -28,29 +24,21 @@ const WalletbuttonButton = styled.button`
 `;
 
 function WalletButton({
-  useWeb3React,
-  supportedChains,
   onError,
-  walletConnectConfigs,
   ButtonProps,
   Render,
   connectText,
   switchText,
   buttonText
 }: WalletButtonProps) {
-  const { activate, account, chainId, active, error } = useWeb3React();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [currentConnector, setCurrentConnector] = useState(-1);
+  const { useWeb3React, connect } = useStore();
+  const { account, active, error } = useWeb3React();
   const isUserRejectedRequestError = error instanceof UserRejectedRequestError;
   const isUnsupportedChainIdError = error instanceof UnsupportedChainIdError;
   const isNoEthereumProviderError = error instanceof NoEthereumProviderError;
 
   const handleConnectClick = async () => {
-    if (isUnsupportedChainIdError && currentConnector === 0) {
-      const res = await switchNetwork(supportedChains[0]);
-      return res;
-    }
-    setModalIsOpen(true);
+    connect();
   };
   const connectButtonText = () => {
     if (isUnsupportedChainIdError) {
@@ -74,46 +62,8 @@ function WalletButton({
     }
   }, [error]);
 
-  useEffect(() => {
-    init(supportedChains, walletConnectConfigs);
-    const logURI = (uri: any) => {
-      console.log(uri);
-    };
-    if (getConnectors()?.walletconnect) {
-      getConnectors()?.walletconnect.on(URI_AVAILABLE, logURI);
-    }
-    if (localStorage.getItem("walletIsConnected") === "true" && (window as any)?.ethereum) {
-      activate(getConnectors()?.injected);
-      setCurrentConnector(0);
-      useAccountListener((window as any)?.ethereum, (accounts) => {
-        console.log(accounts);
-        if (accounts.length === 0) {
-          setCurrentConnector(-1);
-          localStorage.setItem("walletIsConnected", "false");
-        }
-      });
-    }
-
-    return () => {
-      if (getConnectors()?.walletconnect) {
-        getConnectors()?.walletconnect?.off(URI_AVAILABLE, logURI);
-      }
-    };
-  }, []);
-
   return (
     <>
-      <Portal>
-        <WalletsModal
-          showModal={modalIsOpen}
-          setShowModal={setModalIsOpen}
-          onSelect={() => setModalIsOpen(false)}
-          activate={activate}
-          setCurrentConnector={setCurrentConnector}
-          supportedChains={supportedChains}
-          chainId={chainId}
-        />
-      </Portal>
       {Render ? (
         <div
           onClick={() => {

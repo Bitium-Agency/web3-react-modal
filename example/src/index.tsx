@@ -4,7 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Web3Provider } from "@ethersproject/providers";
-import { Web3ReactProvider } from "@web3-react/core";
+import { useWeb3React, Web3ReactProvider } from "@web3-react/core";
+import { Web3ReactModal } from "wallet-button"
 
 const getLibrary = (provider: any) => {
   const lib = new Web3Provider(provider);
@@ -18,6 +19,12 @@ root.render(
   <React.StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
       <App />
+      <Web3ReactModal 
+      useWeb3React={useWeb3React}
+      supportedChains={[{
+        chainId: 1,
+      }]}
+      />
     </Web3ReactProvider>
   </React.StrictMode>
 );
