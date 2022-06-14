@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { UnsupportedChainIdError } from "@web3-react/core";
-import { NoEthereumProviderError, UserRejectedRequestError } from "@web3-react/injected-connector";
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import useStore from "../../../store/store";
 import { WalletButtonProps } from "../../../types/walletconnect";
@@ -24,7 +23,6 @@ const WalletbuttonButton = styled.button`
 `;
 
 function WalletButton({
-  onError,
   ButtonProps,
   Render,
   connectText,
@@ -33,9 +31,7 @@ function WalletButton({
 }: WalletButtonProps) {
   const { useWeb3React, connect } = useStore();
   const { account, active, error } = useWeb3React();
-  const isUserRejectedRequestError = error instanceof UserRejectedRequestError;
   const isUnsupportedChainIdError = error instanceof UnsupportedChainIdError;
-  const isNoEthereumProviderError = error instanceof NoEthereumProviderError;
 
   const handleConnectClick = async () => {
     connect();
@@ -49,18 +45,6 @@ function WalletButton({
     }
     return buttonText || "Connect Wallet";
   };
-  useEffect(() => {
-    if (isUnsupportedChainIdError || error?.name === "UnsupportedChainIdError") {
-      onError("Unsupported chain id");
-    }
-    if (isUserRejectedRequestError) {
-      onError("User rejected request");
-    }
-
-    if (isNoEthereumProviderError || error?.name === "NoEthereumProviderError") {
-      onError("No ethereum provider");
-    }
-  }, [error]);
 
   return (
     <>

@@ -3,9 +3,9 @@ import Web3ReactModal from "./lib/components/web3-react-modal";
 import React from "react";
 import { WalletButtonProps } from "./types/walletconnect";
 import useStore from "./store/store";
+import useWeb3ReactModal from "./hooks/useWeb3ReactModal";
 
 const WRMButton = ({
-  onError,
   ButtonProps,
   Render,
   connectText,
@@ -15,7 +15,6 @@ const WRMButton = ({
   const { useWeb3React } = useStore();
   return useWeb3React ? (
     <WB
-      onError={onError}
       ButtonProps={ButtonProps}
       Render={Render}
       connectText={connectText}
@@ -27,4 +26,4 @@ const WRMButton = ({
   );
 };
 
-export { WRMButton, Web3ReactModal };
+export { WRMButton, Web3ReactModal, useWeb3ReactModal };
