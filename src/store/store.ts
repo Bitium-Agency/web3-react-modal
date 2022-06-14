@@ -1,11 +1,13 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
 import create from "zustand";
 import { SupportedChain } from "../types/chain";
+import { IConnector } from "../types/connectors";
 interface IuseStore {
   isInitialized: boolean;
   modalIsOpen: boolean;
   useWeb3React: any;
   supportedChains: SupportedChain[];
+  connectors: IConnector[];
   setModalIsOpen: (modalIsOpen: boolean) => void;
   setUseWeb3React: (useWeb3React: any) => void;
   setIsInitialized: (isInitialized: boolean) => void;
@@ -14,6 +16,7 @@ interface IuseStore {
   injectAccountListener: () => void;
   activateInjected: (activate: any, userChaneId: string) => void;
   switchNetwork: (chain: SupportedChain) => void;
+  addConnectors: (connector: IConnector[]) => void;
 }
 
 const useStore = create<IuseStore>((set, get) => ({
@@ -21,14 +24,28 @@ const useStore = create<IuseStore>((set, get) => ({
   modalIsOpen: false,
   useWeb3React: null,
   supportedChains: [],
+  connectors: [],
 
+  addConnectors: (connectors: IConnector[]) => {
+    const tmpConnectors: any = [];
+    connectors.forEach((item) => {
+      const connector = new item.connector(item.options);
+      tmpConnectors.push({
+        title: item.title,
+        logo: item.logo,
+        id: item.id,
+        connector: connector
+      });
+    });
+
+    set(() => ({ connectors: [...tmpConnectors] }));
+  },
   setSupportedChains: (supportedChains: SupportedChain[]) => {
     set(() => ({ supportedChains }));
   },
   setUseWeb3React: (useWeb3React: any) => set(() => ({ useWeb3React })),
   setModalIsOpen: (modalIsOpen: boolean) => set(() => ({ modalIsOpen })),
   setIsInitialized: (isInitialized: boolean) => set(() => ({ isInitialized })),
-
   injectAccountListener: () => {
     (window as any)?.ethereum.on("accountsChanged", (accounts: any) => {
       if (accounts.length > 0) {
