@@ -74,7 +74,7 @@ const useStore = create<IuseStore>((set, get) => ({
   switchNetwork: async (chain: SupportedChain) => {
     const provider = (window as any).ethereum;
     const toHex = (d: any) => {
-      const res = "0x" + Number(d).toString(16).slice(-2).toUpperCase();
+      const res = "0x" + Number(d).toString(16).toUpperCase();
       console.log(res);
       return res;
     };

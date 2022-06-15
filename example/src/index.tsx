@@ -7,7 +7,6 @@ import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React, Web3ReactProvider } from "@web3-react/core";
 import { Web3ReactModal } from "wallet-button"
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
-import { AuthereumConnector } from "@web3-react/authereum-connector";
 
 const getLibrary = (provider: any) => {
   const lib = new Web3Provider(provider);
