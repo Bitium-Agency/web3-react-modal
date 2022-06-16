@@ -5,7 +5,7 @@ import { WalletButtonProps } from "./types/walletconnect";
 import useStore from "./store/store";
 import useWeb3ReactModal from "./hooks/useWeb3ReactModal";
 
-const WRMButton = ({
+const Web3ReactButton = ({
   ButtonProps,
   Render,
   connectText,
@@ -26,4 +26,4 @@ const WRMButton = ({
   );
 };
 
-export { WRMButton, Web3ReactModal, useWeb3ReactModal };
+export { Web3ReactButton, Web3ReactModal, useWeb3ReactModal };
