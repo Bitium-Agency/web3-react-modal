@@ -37,17 +37,6 @@ root.render(
             qrcode: true,
           }
         },
-        {
-          title: "Ledger",
-          id: 'ledger',
-          connector: WalletConnectConnector,
-          options: {
-            rpc: {
-              1: 'https://mainnet.infura.io/v3/70d9c70a15ad4cdd91f57979fd0d9e21',
-            },
-            qrcode: true,
-          }
-        }
       ]}
       />
     </Web3ReactProvider>

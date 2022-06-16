@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 import useOutsideClick from "../../../hooks/useOutsiteClick";
 import useStore from "../../../store/store";
@@ -31,12 +31,9 @@ const WalletbuttonModalTitle = styled.span`
   margin-top: 15px;
 `;
 const WalletbuttonModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  overflow-y: auto;
   width: 250px;
-  height: fit-content;
+  max-height: 70%;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -57,6 +54,18 @@ const WalletbuttonModalContainer = styled.div`
   @media (max-width: 768px) {
     width: 80%;
   }
+  &::-webkit-scrollbar {
+    width: 5px;
+    background: transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+  }
 `;
 
 function WalletsModal() {
@@ -75,7 +84,6 @@ function WalletsModal() {
   useOutsideClick(modalContainer, () => {
     setModalIsOpen(false);
   });
-
   return modalIsOpen ? (
     <div
       style={{
@@ -90,31 +98,42 @@ function WalletsModal() {
       className="walletbutton-modal-root"
     >
       <WalletbuttonModalContainer ref={modalContainer} className="walletbutton-modal-container">
-        <WalletbuttonModalTitle className="walletbutton-modal-title">
-          Select a wallet
-        </WalletbuttonModalTitle>
-        <WalletbuttonModalItem className="walletbutton-modal-item" onClick={activeInjected}>
-          Metamask
-          <div style={{ width: "35px", height: "35px" }}>
-            <ProvidersLogo provider="injected" />
-          </div>
-        </WalletbuttonModalItem>
-        {connectors.map((connector: any) => (
-          <WalletbuttonModalItem
-            className="walletbutton-modal-item"
-            key={connector.id}
-            onClick={() => activeConnector(connector.connector)}
-          >
-            {connector.title}
-            {connector.logo ? (
-              connector.logo
-            ) : (
-              <div style={{ width: "35px", height: "35px" }}>
-                <ProvidersLogo provider={connector.id} />
-              </div>
-            )}
+        <div
+          style={{
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <WalletbuttonModalTitle className="walletbutton-modal-title">
+            Select a wallet
+          </WalletbuttonModalTitle>
+          <WalletbuttonModalItem className="walletbutton-modal-item" onClick={activeInjected}>
+            Metamask
+            <div style={{ width: "35px", height: "35px" }}>
+              <ProvidersLogo provider="injected" />
+            </div>
           </WalletbuttonModalItem>
-        ))}
+          {connectors.map((connector: any) => (
+            <WalletbuttonModalItem
+              className="walletbutton-modal-item"
+              key={connector.id}
+              onClick={() => activeConnector(connector.connector)}
+            >
+              {connector.title}
+              {connector.logo ? (
+                connector.logo
+              ) : (
+                <div style={{ width: "35px", height: "35px" }}>
+                  <ProvidersLogo provider={connector.id} />
+                </div>
+              )}
+            </WalletbuttonModalItem>
+          ))}
+        </div>
       </WalletbuttonModalContainer>
     </div>
   ) : (
