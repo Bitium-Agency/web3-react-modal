@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 import useOutsideClick from "../../../hooks/useOutsiteClick";
 import useStore from "../../../store/store";
@@ -84,7 +84,6 @@ function WalletsModal() {
   useOutsideClick(modalContainer, () => {
     setModalIsOpen(false);
   });
-
   return modalIsOpen ? (
     <div
       style={{
