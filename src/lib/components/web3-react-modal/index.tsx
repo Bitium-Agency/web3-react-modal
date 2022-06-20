@@ -8,7 +8,7 @@ import WalletsModal from "../wallets-modal";
 interface WalletButtonProps {
   useWeb3React: any;
   supportedChains: SupportedChain[];
-  connectors: IConnector[];
+  connectors?: IConnector[];
 }
 const Web3ReactModal = ({ useWeb3React, supportedChains, connectors }: WalletButtonProps) => {
   const {
@@ -31,7 +31,9 @@ const Web3ReactModal = ({ useWeb3React, supportedChains, connectors }: WalletBut
     if (localStorage.getItem("walletIsConnected") === "true" && (window as any)?.ethereum) {
       activateInjected(activate, chainId);
     }
-    addConnectors(connectors);
+    if (connectors) {
+      addConnectors(connectors);
+    }
   }, []);
 
   return isInitialized ? createPortal(<WalletsModal />, document.body) : <></>;
