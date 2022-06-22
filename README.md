@@ -76,9 +76,16 @@ Contributions are always welcome, no matter how large or small.
 
 
 
+
 <br/>
-<br/>
+
 
 #### [Online example](#)
 #### [Link to article](#)
 		
+<br/>
+<br/>
+
+
+----
+this package is a part of Bitium Agency's contribution to the industry!
