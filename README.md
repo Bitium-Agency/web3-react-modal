@@ -71,22 +71,21 @@ And then call connect function from useWeb3ReactModal hook whenever you want :
 if you use these values ```(walletconnect - authereum - fortmatic - frame - portis - injected - ledger - trezor)``` for ```id``` you don't need to use the ```logo``` prop.
 
 ## Example
-To run the examples, switch to the `example` directory. Then, simply run `yarn install` to install, and `yarn start` to run the examples on `localhost:3000`.
+To run the examples, switch to the `example` directory. Then, simply run `yarn install` to install, and `yarn start` to run the example on `localhost:3000`.
 
 ## Contributing
 Contributions are always welcome, no matter how large or small.
 
 
 
-
-<br/>
-
+<!-- 
+## Example
 
 #### [Online example](#)
 #### [Link to article](#)
 		
 <br/>
-<br/>
+<br/> -->
 
 
 ----
