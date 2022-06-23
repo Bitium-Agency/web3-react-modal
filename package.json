@@ -1,17 +1,19 @@
 {
-  "name": "@web3-react/modal",
+  "name": "@bitiumagency/web3-react-modal",
   "author": "Mehrab Shayesteh",
   "description": "@Web3-react's plugin to display modal",
+  "homepage": "https://github.com/Bitium-Agency/web3-react-modal#readme",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bitium-Agency/web3-react-modal/issues"
+  },
   "keywords": [
     "react",
-    "react-hooks",
-    "hooks",
     "ethereum",
     "javascript",
     "typescript",
     "web3",
-    "context",
-    "frontend",
+    "react-web3",
     "modal",
     "web3-react",
     "dapp",
@@ -27,7 +29,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/Bitium-Agency/web3-react-modal.git"
+    "url": "git+https://github.com/Bitium-Agency/web3-react-modal.git"
   },
   "version": "6.0.0",
   "main": "./lib/cjs/index.js",
