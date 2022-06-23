@@ -29,45 +29,49 @@ Add it to your project: (note that @web-react/core must be pre-installed in your
 
     npm i @bitiumagency/web3-react-modal
 Add  `Web3ReactModal` component to your react Dapp:
-
-    <Web3ReactModal
-	    useWeb3React={}
-	    supportedChains={}
-	    connectors={} //optional
-	/>
+```tsx
+<Web3ReactModal
+    useWeb3React={}
+    supportedChains={}
+    connectors={} //optional
+/>
+```
 And then call connect function from useWeb3ReactModal hook whenever you want :
-
-    const {connect} = useWeb3ReactModal()
-    function handleButtonClick() {
-	    connect();
-    }
-
+```tsx
+const {connect} = useWeb3ReactModal()
+function handleButtonClick() {
+    connect();
+}
+```
 #### Props
 ###### useWeb3React
     useWeb3React = Import directly from @web3-react and add it to this prop
 ##### supportedChains
-    supportedChains = list of supported chains
-    interface {
-	    chainId:  number;
-	    name?:  string; //These values are used when the network needs to be added
-	    rpcUrl?:  string;
-	    nativeCurrency?: {
-		    name:  string;
-		    decimals:  number;
-		    symbol:  string;
-	    };
-    }
+```jsx
+supportedChains = list of supported chains
+interface {
+    chainId:  number;
+    name?:  string; //These values are used when the network needs to be added
+    rpcUrl?:  string;
+    nativeCurrency?: {
+    name:  string;
+    decimals:  number;
+    symbol:  string;
+    };
+}
+```
 ##### connectors
-
-    connectors = list of connectors
-    //Metamask is added by default
-    interface {
-	title:  String;
-	id:  String; //id is unique
-	logo?:  React.ReactNode;
-	connector:  any; //import directly from connector package and add it to this prop
-	options:  Object; //connector options
-	}
+```jsx
+connectors = list of connectors
+//Metamask is added by default
+interface {
+    title:  String;
+    id:  String; //id is unique
+    logo?:  React.ReactNode;
+    connector:  any; //import directly from connector package and add it to this prop
+    options:  Object; //connector options
+}
+```
 if you use these values ```(walletconnect - authereum - fortmatic - frame - portis - injected - ledger - trezor)``` for ```id``` you don't need to use the ```logo``` prop.
 
 ## Example
