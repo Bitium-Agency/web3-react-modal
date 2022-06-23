@@ -2,7 +2,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
-# @web3-react/modal
+# @bitiumagency/web3-react-modal
 @Web3-react's plugin to display modal
 
 NOTE THAT THIS PLUGIN IS COMPATIBLE WITH [@WEB3-REACT V6](https://github.com/NoahZinsmeister/web3-react/tree/v6)
@@ -20,14 +20,14 @@ NOTE THAT THIS PLUGIN IS COMPATIBLE WITH [@WEB3-REACT V6](https://github.com/Noa
 
 Note : all @web-react features are still the same, such as useWeb3React hook and so on.
 
-## When should I use @web3-react/modal?
+## When should I use @bitiumagency/web3-react-modal?
 
 If you are using @web3-react v6  in your project and you want to allow the user to select the desired provider without the need for additional code, this package can come in handy.
 
 ## Usage
 Add it to your project: (note that @web-react/core must be pre-installed in your project)
 
-    npm i @web3-react/modal
+    npm i @bitiumagency/web3-react-modal
 Add  `Web3ReactModal` component to your react Dapp:
 
     <Web3ReactModal
