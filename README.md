@@ -47,7 +47,7 @@ function handleButtonClick() {
 ###### useWeb3React
     useWeb3React = Import directly from @web3-react and add it to this prop
 ##### supportedChains
-```jsx
+```typescript
 supportedChains = list of supported chains
 interface {
     chainId:  number;
@@ -61,7 +61,7 @@ interface {
 }
 ```
 ##### connectors
-```jsx
+```typescript
 connectors = list of connectors
 //Metamask is added by default
 interface {
