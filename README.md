@@ -82,14 +82,12 @@ Contributions are always welcome, no matter how large or small.
 
 
 
-<!-- 
-## Example
 
-#### [Online example](#)
-#### [Link to article](#)
+## Read more
+#### [Connect your Dapp to smart contract using react and ethers](https://blog.bitium.agency/connect-your-dapp-to-smart-contract-via-react-and-ethers-522a33c84752)
 		
 <br/>
-<br/> -->
+<br/>
 
 
 ----
